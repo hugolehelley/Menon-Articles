@@ -1,0 +1,204 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .page { padding: 1.5rem 0; }
+  .header { border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
+  .badge { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; margin-bottom: 0.6rem; }
+  h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; margin-bottom: 0.4rem; }
+  .byline { font-size: 13px; color: var(--color-text-secondary); }
+  .journal { font-size: 12px; color: var(--color-text-tertiary); margin-top: 3px; }
+  .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--color-text-tertiary); text-transform: uppercase; margin: 1.5rem 0 0.75rem; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 0.75rem; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.85rem; text-align: center; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; line-height: 1.3; }
+  .stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .highlight-blue { color: #185FA5; font-weight: 500; }
+  .highlight-green { color: #3B6D11; font-weight: 500; }
+  .highlight-amber { color: #854F0B; font-weight: 500; }
+  .highlight-red { color: #A32D2D; font-weight: 500; }
+  .finding { display: flex; gap: 10px; align-items: flex-start; padding: 0.65rem 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+  .finding:last-child { border-bottom: none; padding-bottom: 0; }
+  .dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: #185FA5; margin-top: 8px; }
+  .dot-amber { background: #BA7517; }
+  .dot-red { background: #E24B4A; }
+  .dot-green { background: #639922; }
+  .question-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .q-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+  .q-hint { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; font-style: italic; }
+  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0; font-size: 13px; }
+  .compare-row > div { padding: 7px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .compare-row.header-row > div { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); background: var(--color-background-secondary); border-bottom: 0.5px solid var(--color-border-secondary); }
+  .compare-row:last-child > div { border-bottom: none; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; margin-right: 4px; }
+  .tag-blue { background: #E6F1FB; color: #0C447C; }
+  .tag-amber { background: #FAEEDA; color: #633806; }
+  .tag-red { background: #FCEBEB; color: #791F1F; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.25rem 0; }
+</style>
+
+<div class="page">
+  <div class="header">
+    <span class="badge">Article 1 of 3 — Research Brief</span>
+    <h1>Potency following robotic radical prostatectomy: conventional nerve sparing vs. prostatic fascia sparing</h1>
+    <p class="byline">Menon M, Kaul S, Bhandari A, Shrivastava A, Tewari A, Hemal A</p>
+    <p class="journal">The Journal of Urology · Vol. 174, pp. 2291–2296 · December 2005 · Vattikuti Urology Institute, Henry Ford Hospital</p>
+  </div>
+
+  <p class="section-title">Study at a glance</p>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="stat-label">Total enrolled (Jan–Aug 2003)</p>
+      <p class="stat-val">126</p>
+      <p class="stat-sub">VIP patients; 58 analyzed</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Study group (Veil of Aphrodite)</p>
+      <p class="stat-val">35</p>
+      <p class="stat-sub">Mean age 57.4 yrs</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Control group (conventional NS)</p>
+      <p class="stat-val">23</p>
+      <p class="stat-sub">Mean age 60.5 yrs</p>
+    </div>
+  </div>
+
+  <p class="section-title">Background & rationale</p>
+  <div class="card">
+    <div class="finding"><div class="dot"></div><span>Conventional nerve-sparing radical prostatectomy (RP) yields potency rates of <strong>10%–86%</strong> — a wide range attributable to inconsistent potency definitions across studies.</span></div>
+    <div class="finding"><div class="dot"></div><span>The SHIM (Sexual Health Inventory for Men / IIEF-5) is a validated 5-item self-administered tool. A score >21 has 98% negative predictive value for ED; only <strong>10–20%</strong> of post-RP patients reach this bar.</span></div>
+    <div class="finding"><div class="dot"></div><span>Research suggests accessory neural channels exist within the <em>prostatic fascia</em> — beyond the classic neurovascular bundles — that may contribute to penile innervation.</span></div>
+    <div class="finding"><div class="dot dot-green"></div><span>Menon's team developed the <strong>"Veil of Aphrodite"</strong> technique: preservation of the entire prostatic fascia during VIP (Vattikuti Institute Prostatectomy), hypothesizing enhanced nerve preservation via the da Vinci robot's stereoscopic magnification.</span></div>
+  </div>
+
+  <p class="section-title">Study design & methods</p>
+  <div class="card">
+    <div class="finding"><div class="dot"></div><span><span class="tag tag-blue">Prospective, non-randomized</span> Single surgeon (Menon). Eligibility: SHIM >21 without PDE5i (fully potent preoperatively).</span></div>
+    <div class="finding"><div class="dot"></div><span><strong>Study group</strong> (Veil): Low-risk D'Amico disease (PSA ≤10, cT1c, Gleason ≤6) + 8 young intermediate-risk patients who elected the procedure.</span></div>
+    <div class="finding"><div class="dot"></div><span><strong>Control group</strong> (conventional NS): All other potent patients — predominantly intermediate-risk (93%).</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span>Primary endpoint: sexual intercourse at least once in the 4 weeks prior to questionnaire. Secondary endpoints: SHIM >21 with or without PDE5i; SHIM >21 without PDE5i. Follow-up: <strong>12 months</strong>.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span>Key technical difference: In the Veil group, Hem-o-lok clips were not used; individual vessels entering the prostate were coagulated with bipolar forceps, and scissor dissection separated the fascia from the capsule.</span></div>
+  </div>
+
+  <p class="section-title">Key outcomes (12-month follow-up)</p>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <div class="compare-row header-row">
+      <div>Outcome measure</div>
+      <div style="text-align:center;">Control (n=23)</div>
+      <div style="text-align:center;">Study/Veil (n=35)</div>
+    </div>
+    <div class="compare-row">
+      <div>Intercourse achieved (primary endpoint)</div>
+      <div style="text-align:center;" class="highlight-amber">17/23 (74%)</div>
+      <div style="text-align:center;" class="highlight-green">34/35 (97%)</div>
+    </div>
+    <div class="compare-row">
+      <div>Normal erections (SHIM >21) — with or without PDE5i</div>
+      <div style="text-align:center;" class="highlight-red">6/23 (26%)</div>
+      <div style="text-align:center;" class="highlight-green">30/35 (86%)</div>
+    </div>
+    <div class="compare-row">
+      <div>Normal erections (SHIM >21) — without PDE5i</div>
+      <div style="text-align:center;" class="highlight-red">4/23 (17%)</div>
+      <div style="text-align:center;" class="highlight-green">18/35 (51%)</div>
+    </div>
+    <div class="compare-row">
+      <div>Mean postoperative SHIM score</div>
+      <div style="text-align:center;">14.8 (↓38%)</div>
+      <div style="text-align:center;" class="highlight-green">21.9 (↓11%)</div>
+    </div>
+    <div class="compare-row">
+      <div>On PDE5i at 12 months</div>
+      <div style="text-align:center;">30%</div>
+      <div style="text-align:center;">43% (ns)</div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:var(--color-text-secondary); margin-top:6px; margin-left:2px;">All primary/secondary endpoint differences: p ≤ 0.002. PDE5i use difference: p = 0.57 (not significant).</p>
+
+  <p class="section-title">Oncologic safety</p>
+  <div class="card">
+    <div class="finding"><div class="dot dot-green"></div><span>Positive surgical margins: <strong>1 (2%) in the Veil group</strong> (focal, apical) and <strong>1 (3%) in the control group</strong> (posterolateral NVB) — no difference (p = 1.0). Both had undetectable PSA at 12 months. No positive margins in the veil region itself.</span></div>
+  </div>
+
+  <p class="section-title">Authors' proposed mechanisms</p>
+  <div class="card">
+    <div class="finding"><div class="dot"></div><span><strong>Accessory nerve preservation:</strong> Prostatic fascia contains additional erectile nerve fibers beyond the classic NVBs; the Veil technique may spare them.</span></div>
+    <div class="finding"><div class="dot"></div><span><strong>Reduced neuropraxia:</strong> A more distant dissection plane may minimize traction and thermal injury to the main NVBs.</span></div>
+    <div class="finding"><div class="dot"></div><span><strong>Vascular preservation:</strong> Fascia preservation may maintain additional cavernous blood supply, supporting endothelial nitric oxide production — the key mediator of penile erection.</span></div>
+  </div>
+
+  <p class="section-title">Limitations acknowledged by the authors</p>
+  <div class="card">
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Bias risk</span> Non-randomized; data collection/analysis done by team members directly involved in surgery — no independent third-party evaluator.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Selection</span> Study group was younger (57.4 vs. 60.5 yrs, p=0.03) and predominantly low-risk disease; control group was 93% intermediate-risk.</span></div>
+    <div class="finding"><div class="dot dot-red"></div><span><span class="tag tag-red">Attrition</span> Only 76% questionnaire response rate; nonresponders excluded. Worst-case scenario: potency 60% (control) vs. 74% (study).</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">PDE5i confound</span> No standardized PDE5i rehabilitation protocol; frequency/duration of use not rigorously tracked — acknowledged by editorial commentator (Mulhall) as a critical gap.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Single surgeon</span> All cases performed by Menon; results may not generalize. Larger multi-institutional validation needed.</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-title">Likely questions Dr. Menon may ask you</p>
+
+  <div class="card">
+    <div class="finding">
+      <div class="question-num">1</div>
+      <div>
+        <p class="q-text">Why did we choose SHIM >21 as the eligibility threshold — and how does that affect the generalizability of these results?</p>
+        <p class="q-hint">Know that SHIM >21 = fully potent. Only 10–20% of all post-RP patients reach this in the general literature. Results are not applicable to men with preexisting ED.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">2</div>
+      <div>
+        <p class="q-text">The control group was 93% intermediate-risk vs. 17% in the study group. How does that affect your interpretation of the potency difference?</p>
+        <p class="q-hint">Patient selection bias is the central confound. Be ready to discuss D'Amico classification and why risk category affects surgical dissection extent.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">3</div>
+      <div>
+        <p class="q-text">What are the three hypothesized mechanisms for improved potency with the Veil technique — and which does the data in this paper actually support?</p>
+        <p class="q-hint">Accessory nerves, reduced neuropraxia/thermal injury, vascular preservation. The paper acknowledges no microdissection studies were done — none of the three is directly proven here.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">4</div>
+      <div>
+        <p class="q-text">Commentator Mulhall flagged PDE5i use as a critical variable. How should a future trial control for this?</p>
+        <p class="q-hint">Early penile rehabilitation (nightly PDE5i starting 4 weeks post-op) — cite Padma-Nathan's data on sildenafil and cavernous nerve recovery. Both groups in this study were not systematically managed.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">5</div>
+      <div>
+        <p class="q-text">We found no positive margins in the veil region. What is your concern about performing fascia preservation in intermediate or high-risk disease?</p>
+        <p class="q-hint">Extraprostatic extension risk. Fascia preservation requires the cancer to be confined; in higher-risk disease the veil may need to be sacrificed for oncologic control.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">6</div>
+      <div>
+        <p class="q-text">The accessory pudendal artery was not mentioned in our paper. Why might Mulhall raise this — and what is its relevance?</p>
+        <p class="q-hint">Accessory pudendal arteries contribute to cavernous arterial inflow. Control group may have had them sacrificed. The authors' reply: with 3-D robotic vision, these were easily identified and preserved in both groups.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">7</div>
+      <div>
+        <p class="q-text">If only 76% of patients returned questionnaires, what is the worst-case potency rate for the Veil group — and does it still support the technique?</p>
+        <p class="q-hint">Worst case (all non-responders impotent): 74% Veil vs. 60% control — still favors Veil, but the gap narrows significantly.</p>
+      </div>
+    </div>
+    <div class="finding" style="border-bottom:none;">
+      <div class="question-num">8</div>
+      <div>
+        <p class="q-text">What study design would you recommend to definitively validate the Veil of Aphrodite technique?</p>
+        <p class="q-hint">Prospective randomized trial; matched for D'Amico risk, age, comorbidity severity; standardized PDE5i rehab; cavernous nerve functional assessment intraoperatively; independent third-party questionnaire administration; multi-institutional.</p>
+      </div>
+    </div>
+  </div>
+</div>

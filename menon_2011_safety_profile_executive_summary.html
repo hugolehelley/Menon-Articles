@@ -1,0 +1,279 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .page { padding: 1.5rem 0; font-family: var(--font-sans); }
+  .header { border-bottom: 0.5px solid var(--color-border-tertiary); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
+  .badge { display: inline-block; background: #FCEBEB; color: #791F1F; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em; margin-bottom: 0.6rem; }
+  .badge-context { display: inline-block; background: #E6F1FB; color: #0C447C; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; margin-left: 6px; }
+  h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; margin-bottom: 0.4rem; }
+  .byline { font-size: 13px; color: var(--color-text-secondary); }
+  .journal { font-size: 12px; color: var(--color-text-tertiary); margin-top: 3px; }
+  .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; color: var(--color-text-tertiary); text-transform: uppercase; margin: 1.5rem 0 0.75rem; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 0.75rem; }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 0.75rem; }
+  .stat-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 0.75rem; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.85rem; text-align: center; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; line-height: 1.3; }
+  .stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+  .finding { display: flex; gap: 10px; align-items: flex-start; padding: 0.65rem 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+  .finding:last-child { border-bottom: none; padding-bottom: 0; }
+  .dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: #A32D2D; margin-top: 8px; }
+  .dot-blue { background: #185FA5; }
+  .dot-amber { background: #BA7517; }
+  .dot-green { background: #3B6D11; }
+  .highlight-green { color: #3B6D11; font-weight: 500; }
+  .highlight-blue { color: #185FA5; font-weight: 500; }
+  .highlight-amber { color: #854F0B; font-weight: 500; }
+  .highlight-red { color: #A32D2D; font-weight: 500; }
+  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 0; font-size: 12px; }
+  .compare-row > div { padding: 6px 8px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); }
+  .compare-row.header-row > div { font-size: 10px; font-weight: 500; color: var(--color-text-secondary); background: var(--color-background-secondary); border-bottom: 0.5px solid var(--color-border-secondary); }
+  .compare-row:last-child > div { border-bottom: none; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 500; margin-right: 4px; }
+  .tag-blue { background: #E6F1FB; color: #0C447C; }
+  .tag-amber { background: #FAEEDA; color: #633806; }
+  .tag-red { background: #FCEBEB; color: #791F1F; }
+  .tag-green { background: #EAF3DE; color: #27500A; }
+  .question-num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #FCEBEB; color: #791F1F; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .q-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+  .q-hint { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; font-style: italic; }
+  .context-box { background: #E6F1FB; border-radius: var(--border-radius-md); padding: 0.85rem 1rem; margin-bottom: 0.75rem; font-size: 13px; color: #042C53; line-height: 1.6; border: 0.5px solid #B5D4F4; }
+  .compl-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0; font-size: 13px; }
+  .compl-row > div { padding: 7px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); }
+  .compl-row.hr > div { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); background: var(--color-background-secondary); border-bottom: 0.5px solid var(--color-border-secondary); }
+  .compl-row:last-child > div { border-bottom: none; }
+  .predictor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pred-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
+  .pred-title { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .pred-item { font-size: 13px; color: var(--color-text-primary); padding: 3px 0; line-height: 1.5; }
+  .pred-item.protective { color: #3B6D11; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.25rem 0; }
+</style>
+
+<div class="page">
+  <div class="header">
+    <span class="badge">Article 3 of 3 — Research Brief</span>
+    <span class="badge-context">Platinum Priority — European Urology 2011</span>
+    <h1>Safety profile of robot-assisted radical prostatectomy: a standardized report of complications in 3317 patients</h1>
+    <p class="byline">Agarwal PK, Sammon J, Bhandari A, Dabaja A, Diaz M, Dusik-Fenton S, Satyanarayana R, Simone A, Trinh Q-D, Baize B, Menon M</p>
+    <p class="journal">European Urology · Vol. 59, pp. 684–698 · 2011 · Vattikuti Urology Institute, Henry Ford Hospital, Detroit, MI</p>
+  </div>
+
+  <div class="context-box">
+    <strong>Arc of the three papers:</strong> The 2002 paper asked "can we do robotic RP at all?" The 2005 paper asked "can we do it better, preserving more nerve function?" This 2011 paper — nearly a decade into the VUI program, with over 5,000 cases accumulated — asks the definitive safety question: "how does this operation actually perform at scale, measured rigorously?" It is the most methodologically sophisticated of the three and the one most directly relevant to institutional credentialing, medicolegal standards, and health policy.
+  </div>
+
+  <p class="section-title">Study at a glance</p>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="stat-label">Consecutive RARP cases analyzed (Jan 2005 – Dec 2009)</p>
+      <p class="stat-val">3,317</p>
+      <p class="stat-sub">Cases 1,300–4,617 in VUI database</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Median follow-up</p>
+      <p class="stat-val">24.2</p>
+      <p class="stat-sub">months (IQR: 12.4–36.9)</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Surgeons performing cases</p>
+      <p class="stat-val">5</p>
+      <p class="stat-sub">2 experienced, 3 beginners</p>
+    </div>
+  </div>
+
+  <p class="section-title">Why this paper is different — the Martin–Donat criteria</p>
+  <div class="card">
+    <div class="finding"><div class="dot dot-blue"></div><span>Prior RARP complication literature was fragmented: small numbers, short follow-up windows (typically only 30 days), no comorbidity analysis, and inconsistent definitions. Only <strong>one</strong> prior RP series met Martin's reporting standards before this paper.</span></div>
+    <div class="finding"><div class="dot dot-blue"></div><span>The <strong>Martin–Donat criteria</strong> (modified for urology by Donat, 2007) require: defined data accrual period, outpatient information included, explicit complication definitions, mortality/morbidity rates, procedure-specific complications (bleeding, visceral injury, urine leak, lymphocele), a validated grading system (Clavien–Dindo), length of stay, and risk stratification analysis. This paper meets all 10 criteria.</span></div>
+    <div class="finding"><div class="dot dot-blue"></div><span>Data captured from <strong>six parallel sources</strong>: electronic medical records (operative + nursing notes, discharge summaries), outpatient/ER visits, hospital claims data (>60,000 claims), a prospective PCa database, institutional M&M records, and NSQIP sampling by trained nurse abstractors.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span>Key exclusion: the 1,299 patients operated before January 2005 were excluded because claims data were unavailable, which would have resulted in underreporting of delayed complications. This means <strong>the early learning curve of the two most experienced surgeons (Menon included) is not in this dataset</strong> — a critical limitation acknowledged by the authors.</span></div>
+  </div>
+
+  <p class="section-title">Overall complication profile</p>
+  <div class="stat-grid-4">
+    <div class="stat-card">
+      <p class="stat-label">Overall complication rate</p>
+      <p class="stat-val highlight-green">9.8%</p>
+      <p class="stat-sub">326/3317 patients; 368 events</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Medical complications</p>
+      <p class="stat-val">2.4%</p>
+      <p class="stat-sub">79 events in 78 patients</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Surgical complications</p>
+      <p class="stat-val">8.0%</p>
+      <p class="stat-sub">289 events in 264 patients</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Allogeneic transfusion rate</p>
+      <p class="stat-val">2.1%</p>
+      <p class="stat-sub">69/3317; true imperative rate: 0.4%</p>
+    </div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <p class="stat-label">Minor complications (Clavien 1–2)</p>
+      <p class="stat-val">242</p>
+      <p class="stat-sub">65.8% of all complications</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Major complications (Clavien 3–5)</p>
+      <p class="stat-val">126</p>
+      <p class="stat-sub">34.2% of all complications</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-label">Median length of stay</p>
+      <p class="stat-val">1 day</p>
+      <p class="stat-sub">vs. 3 days (ORP), 11 days (LRP)</p>
+    </div>
+  </div>
+
+  <p class="section-title">Complication timing — a key finding</p>
+  <div class="card">
+    <div class="compl-row hr"><div>Timing window</div><div style="text-align:center;">No. complications</div><div style="text-align:center;">% of total</div></div>
+    <div class="compl-row"><div>Within 30 days</div><div style="text-align:center;" class="highlight-blue">299</div><div style="text-align:center;">81.3%</div></div>
+    <div class="compl-row"><div>31–90 days</div><div style="text-align:center;">17</div><div style="text-align:center;">4.6%</div></div>
+    <div class="compl-row"><div>After 90 days</div><div style="text-align:center;" class="highlight-amber">52</div><div style="text-align:center;">14.1%</div></div>
+  </div>
+  <p style="font-size:12px; color:var(--color-text-secondary); margin-top:6px; margin-left:2px;">Critical insight: medical complications plateau at 30 days; <strong>surgical complication rate continues rising beyond 100 days</strong>, driven by bladder neck contracture (n=22) and lymphocele formation (n=27) — both classified as Clavien Grade 3 (require intervention) despite being amenable to endoscopy or percutaneous drainage. A 30-day follow-up window, used by most prior series, would have missed 18.7% of complications.</p>
+
+  <p class="section-title">Most common specific complications</p>
+  <div class="card">
+    <div class="compl-row hr"><div>Complication</div><div style="text-align:center;">N</div><div style="text-align:center;">Management</div></div>
+    <div class="compl-row"><div>Postoperative bleeding/anemia requiring transfusion</div><div style="text-align:center;">69</div><div style="text-align:center;">Conservative (55) / Reoperation (14)</div></div>
+    <div class="compl-row"><div>Xerophthalmia (eye dryness/irritation from positioning)</div><div style="text-align:center;">27</div><div style="text-align:center;">Conservative</div></div>
+    <div class="compl-row"><div>Anastomotic urine leak / urinoma</div><div style="text-align:center;">34</div><div style="text-align:center;">Conservative / CT drain</div></div>
+    <div class="compl-row"><div>Ileus</div><div style="text-align:center;">20</div><div style="text-align:center;">Conservative (bowel rest)</div></div>
+    <div class="compl-row"><div>Bladder neck contracture (delayed)</div><div style="text-align:center;">22</div><div style="text-align:center;">Endoscopy / dilation (Clavien 3)</div></div>
+    <div class="compl-row"><div>Lymphocele formation (delayed)</div><div style="text-align:center;">27</div><div style="text-align:center;">CT-guided drainage (Clavien 3)</div></div>
+    <div class="compl-row"><div>Enterotomy</div><div style="text-align:center;">9</div><div style="text-align:center;">Reoperation (5 of 9)</div></div>
+  </div>
+
+  <p class="section-title">Independent predictors of complications (multivariable analysis)</p>
+  <div class="predictor-grid">
+    <div class="pred-card">
+      <p class="pred-title">Medical complications</p>
+      <div class="pred-item">↑ Preoperative PSA (OR 1.04 per ng/ml)</div>
+      <div class="pred-item">↑ Cardiac comorbidity (OR 1.74)</div>
+    </div>
+    <div class="pred-card">
+      <p class="pred-title">Surgical complications</p>
+      <div class="pred-item">↑ Age (OR 1.02 per year)</div>
+      <div class="pred-item">↑ Biopsy Gleason 7 (OR 1.54 vs. Gleason 6)</div>
+      <div class="pred-item">↑ Biopsy Gleason 8 (OR 1.64 vs. Gleason 6)</div>
+      <div class="pred-item">↑ GERD (OR 1.68)</div>
+      <div class="pred-item protective">↓ Hyperlipidemia — protective (OR 0.64)</div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:var(--color-text-secondary); margin-top:6px; margin-left:2px;">Note: Hyperlipidemia's protective effect is counterintuitive and likely represents a surrogate for patients who are medically managed and monitored — a form of "healthy user" bias. The authors do not fully explain this finding.</p>
+
+  <p class="section-title">Contextual comparison to other series (Table 8 in paper)</p>
+  <div class="card" style="padding:0; overflow:hidden;">
+    <div class="compare-row header-row">
+      <div>Series</div>
+      <div style="text-align:center;">Tech</div>
+      <div style="text-align:center;">N</div>
+      <div style="text-align:center;">Complication rate</div>
+      <div style="text-align:center;">Transfusion rate</div>
+    </div>
+    <div class="compare-row">
+      <div>Rabbani et al. (MSK)</div><div style="text-align:center;">ORP/LRP</div><div style="text-align:center;">4,592</div><div style="text-align:center;" class="highlight-amber">27.5–39%</div><div style="text-align:center;" class="highlight-amber">42.4%</div>
+    </div>
+    <div class="compare-row">
+      <div>Loppenberg et al.</div><div style="text-align:center;">ORP</div><div style="text-align:center;">2,893</div><div style="text-align:center;" class="highlight-amber">27.7%</div><div style="text-align:center;">4.5%</div>
+    </div>
+    <div class="compare-row">
+      <div>Hruza et al.</div><div style="text-align:center;">LRP</div><div style="text-align:center;">2,200</div><div style="text-align:center;" class="highlight-amber">33.1%</div><div style="text-align:center;" class="highlight-amber">14.8%</div>
+    </div>
+    <div class="compare-row">
+      <div>Novara et al.</div><div style="text-align:center;">RARP</div><div style="text-align:center;">415</div><div style="text-align:center;">22%</div><div style="text-align:center;">5.8%</div>
+    </div>
+    <div class="compare-row" style="background: var(--color-background-secondary);">
+      <div><strong>Present series (VUI)</strong></div><div style="text-align:center;"><strong>RARP</strong></div><div style="text-align:center;"><strong>3,317</strong></div><div style="text-align:center;" class="highlight-green"><strong>9.8%</strong></div><div style="text-align:center;" class="highlight-green"><strong>2.1%</strong></div>
+    </div>
+  </div>
+  <p style="font-size:12px; color:var(--color-text-secondary); margin-top:6px; margin-left:2px;">VUI's 9.8% is strikingly lower than all comparators. The authors' explanation: (1) early learning-curve cases excluded, (2) dedicated surgical team and 3D projection for assistants, (3) RARP may genuinely be safer. All three merit scrutiny.</p>
+
+  <p class="section-title">Reoperation, readmission, and ER visits summary</p>
+  <div class="card">
+    <div class="finding"><div class="dot"></div><span>Reoperation during initial hospitalization: <strong>18 patients (0.5%)</strong> — most commonly postoperative bleeding (n=9) and unrecognized enterotomy (n=4).</span></div>
+    <div class="finding"><div class="dot"></div><span>Reoperation after discharge: <strong>50 patients (1.5%)</strong> — most commonly bladder neck contracture (n=16), wound dehiscence (n=7), incisional hernia (n=7).</span></div>
+    <div class="finding"><div class="dot dot-blue"></div><span>Readmission: <strong>115 patients (3.5%)</strong> — most commonly for lymphocele (n=21), urine leak/urinoma (n=18), postoperative anemia (n=12).</span></div>
+    <div class="finding"><div class="dot dot-green"></div><span>ER visit without readmission: <strong>60 patients (1.8%)</strong> — most commonly tube malfunction (n=14), gross hematuria (n=8), urinary retention (n=7).</span></div>
+  </div>
+
+  <p class="section-title">Acknowledged limitations</p>
+  <div class="card">
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Selection bias</span> Single high-volume tertiary referral center with a dedicated team. Results may not be reproducible at lower-volume institutions without robust mentorship infrastructure.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Learning curve excluded</span> The 1,299 earliest cases (including Menon's own formative experience) are not included. The 9.8% rate represents a <em>mature</em> program, not a starting point.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Surgeon heterogeneity</span> Two experienced surgeons contributed 82.5% of cases (995 + 304 each); three beginners contributed the remaining 17.5%. The complication rate almost certainly varies substantially across this group — but it is not stratified by surgeon in the main results.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Technique evolution</span> VIP technique underwent significant modifications in 2007 and 2009 (lymph node dissection approach, urethrovesical anastomosis, bladder drainage method changed from Foley to suprapubic in 2008). Pooling these eras may obscure era-specific complication rates.</span></div>
+    <div class="finding"><div class="dot dot-amber"></div><span><span class="tag tag-amber">Transfusion controversy</span> 55 of 69 transfusions were "discretionary" (triggered by Hct &lt;30 per care pathway, not clinical symptoms). The true "imperative" transfusion rate was only 0.4%. Counting all transfusions inflates the complication count by Clavien 2 classification — but excluding them would have made the rate even lower.</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <p class="section-title">Likely questions Dr. Menon may ask you</p>
+  <div class="card">
+    <div class="finding">
+      <div class="question-num">1</div>
+      <div>
+        <p class="q-text">Why did we exclude the first 1,299 patients from this analysis — and what does that do to how you interpret the 9.8% complication rate?</p>
+        <p class="q-hint">Claims data unavailable for early cases, risking underreporting of delayed complications. But the more important implication: those excluded cases contain the learning curves of the two most experienced surgeons, including Menon himself. The 9.8% figure reflects a mature program. A skeptic would note that the denominator deliberately avoids the hardest part of the experience.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">2</div>
+      <div>
+        <p class="q-text">Walk me through the Clavien–Dindo classification. Why does it matter that bladder neck contracture is a Grade 3 complication?</p>
+        <p class="q-hint">Clavien 1: no intervention needed; 2: pharmacological treatment; 3: surgical/endoscopic/radiologic intervention; 4: life-threatening; 5: death. Bladder neck contracture requires endoscopy under anesthesia — hence Grade 3 (major). This matters because it inflates the "major complication" count (126 total) disproportionately relative to perceived clinical severity. Know the classification cold.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">3</div>
+      <div>
+        <p class="q-text">Our complication rate is 9.8% versus 27–39% in open and laparoscopic RP series. What are three possible explanations for that difference — and which is most likely?</p>
+        <p class="q-hint">(1) RARP is genuinely safer — less blood loss, no conversion, shorter stay. (2) Selection bias — VUI is a referral center; patients may be healthier or lower-risk. (3) Underreporting — even with 6 data sources, some centers used even more aggressive capture. The authors argue against underreporting via 60,000 claims and NSQIP verification. They lean toward (1), but (2) is plausible. Be nuanced.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">4</div>
+      <div>
+        <p class="q-text">Why does the surgical complication rate keep climbing past 100 days on the Kaplan-Meier curves?</p>
+        <p class="q-hint">Bladder neck contracture and lymphocele — both delayed-onset, both requiring intervention (Clavien 3), both captured only because follow-up extended beyond the conventional 30-day window. This is the key argument for why a 30-day endpoint is insufficient for RP complication reporting.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">5</div>
+      <div>
+        <p class="q-text">GERD predicts surgical complications on multivariable analysis. Why would that be — and do you believe it?</p>
+        <p class="q-hint">The biological plausibility is weak. GERD likely functions as a proxy for patients with higher rates of prior abdominal surgery, adhesions, or anatomical difficulty (e.g., hiatal hernia). It may also reflect a "sicker patient" phenotype. It's almost certainly not causal. Be prepared to discuss confounding by indication.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">6</div>
+      <div>
+        <p class="q-text">Hyperlipidemia was independently protective against surgical complications. How do you explain that finding?</p>
+        <p class="q-hint">Almost certainly "healthy user" bias — patients on statins are regularly seen by physicians, better medically optimized, and more compliant. Hyperlipidemia itself is unlikely to biologically protect surgical tissue. The authors do not offer a clear mechanism, which is a gap worth noting.</p>
+      </div>
+    </div>
+    <div class="finding">
+      <div class="question-num">7</div>
+      <div>
+        <p class="q-text">There were 69 transfusions, but you argue the true "imperative" rate is only 0.4%. How do you defend counting all 69 as complications?</p>
+        <p class="q-hint">Clavien specifically categorizes transfusion as Grade 2. Donat lists it as a procedure-specific complication of RP. The Surgical Apgar score uses blood loss as one of three factors correlating with perioperative mortality. Even if 55 were triggered by a protocol threshold (Hct &lt;30) rather than symptoms, the protocol itself reflects a clinical risk management decision — arguably appropriate to count. Know both sides.</p>
+      </div>
+    </div>
+    <div class="finding" style="border-bottom:none;">
+      <div class="question-num">8</div>
+      <div>
+        <p class="q-text">Looking across all three papers we've discussed — 2002, 2005, 2011 — what is the single most important question about RARP that still hasn't been answered?</p>
+        <p class="q-hint">Strong answer: a prospective, multi-institutional, randomized controlled trial comparing RARP vs. ORP vs. LRP on trifecta outcomes (continence, potency, oncologic control) with standardized reporting, independent assessment, and long-term (5–10 year) follow-up — controlling for surgeon volume, patient selection, and technique evolution. The 2011 paper itself closes by calling for "well-designed collaborative quality initiatives." Menon will appreciate that you see the through-line.</p>
+      </div>
+    </div>
+  </div>
+</div>
